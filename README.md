@@ -7,7 +7,8 @@ The first step will be to download this code onto your computer. You can do this
 
 `git clone https://github.com/NauIceLab/SpectralAnalysis.git`
 
-This will provide you with all of the neessary files, including two CSV files with example data. 
+
+This will provide you with all of the necessary files, including two CSV files with example data. 
 
 
 ## Running the code
