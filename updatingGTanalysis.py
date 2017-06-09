@@ -19,12 +19,12 @@ from scipy.integrate import trapz
 import csv
 
 def main():
-    print "main called"
+    print("main called")
     choose_dir()
     #choose files for analysis
     raw_x,raw_y, raw_xbg,raw_ybg = choose_files()
 
-    print "plotting imported data..."
+    print("plotting imported data...")
     plotting_data_for_inspection(raw_x,raw_y,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawspectrum.pdf',False)
     plotting_data_for_inspection(raw_xbg,raw_ybg,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawbackground.pdf',False)
 
@@ -117,14 +117,14 @@ def choose_files():
     and saves preferences for reference later on
     """
     print 'choose_files() was called'
-    raw_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_003_92K_VIS.CSV'
-    #input('enter a raw dataset for analysis') 
+    #raw_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_003_92K_VIS.CSV'
+    raw_import = str(input('enter a raw dataset for analysis'))
     print  "\nGot it! Importing now... \n"
     raw_x,raw_y = import_data(raw_import)
 
     print "enter a raw background for analysis"
-    bg_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_002_92K_Background_VIS.CSV' 
-    #input('enter a raw background for analysis')
+    #bg_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_002_92K_Background_VIS.CSV' 
+    bg_import = input('enter a raw background for analysis')
     print  "\nGot it! Importing now... \n"
     raw_xbg,raw_ybg = import_data(bg_import)
 
