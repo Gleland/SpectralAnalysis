@@ -1,7 +1,7 @@
 # SpectralAnalysis
 
 
-Calculate absorption coefficients via the Beer-Lambert law from transmission spectra.
+This program will assist the user to calculate absorption coefficients via the Beer-Lambert law from transmission spectra.
 
 
 ### Installation
