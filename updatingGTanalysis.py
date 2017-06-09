@@ -73,12 +73,6 @@ def fft_calculations(raw_x,raw_y,raw_xbg,raw_ybg):
     return frq_x, frq_xbg, fft_y, fft_ybg
 
 
-
-
-
-
-
-
 def choose_dir():
     """
     User chooses where all work will be saved and 
@@ -102,8 +96,8 @@ def plot_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,file
 
     parameters
     ----------
-    xdata,ydata: x and y data points to be plotted
-    plot_xlabel,plot_ylabel: what to label x and y axes in plot
+    xdata,ydata: x and y data to be plotted
+    plot_xlabel,plot_ylabel: label x and y axes in plot
     file_name_for_saving: string given for saving file for later referece
     block_boolean: True or False, tells if program waits for figure to close
     """
@@ -115,12 +109,6 @@ def plot_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,file
     plt.suptitle(plot_title)
     plt.show(block=block_boolean)
     plt.savefig(filename_for_saving)
-
-
-
-
-
-
 
 
 def choose_files():
