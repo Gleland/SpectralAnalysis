@@ -25,8 +25,8 @@ def main():
     raw_x,raw_y, raw_xbg,raw_ybg = choose_files(folder_to_save)
 
     print("plotting imported data...")
-    plotting_data_for_inspection(raw_x,raw_y,'Raw Data','Wavenumber (cm-1)','% Transmittance','rawspectrum.pdf',False)
-    plotting_data_for_inspection(raw_xbg,raw_ybg,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawbackground.pdf',False)
+    plotting_data_for_inspection(raw_x,raw_y,'Raw Data','Wavenumber (cm-1)','% Transmittance','rawspectrum.pdf',folder_to_save, False)
+    plotting_data_for_inspection(raw_xbg,raw_ybg,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawbackground.pdf',folder_to_save, False)
 
     #user chooses method after inspecting plots
     user_method = str(raw_input('Press "s" for savitsky-golay filter, or "f" for fft filter\n:'))
@@ -36,12 +36,12 @@ def main():
             # savitsky-golay option was chosen
             choosing = False
             raw_x, norm_smooth = sgf_calc()
-            plot_data(raw_x,norm_smooth)
+            plot_data(raw_x,norm_smooth,folder_to_save)
         elif user_method.lower() == 'f':
             # fft option was chosen
             choosing = False
             frq_x,frq_xbg,fft_y,fft_ybg = fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg,folder_to_save)
-            plot_figure, plot_axis = plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',False)
+            plot_figure, plot_axis = plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',folder_to_save, False)
             filt_y = fft_y.copy()
             filt_ybg = fft_ybg.copy()
             raw_input('zoom to liking, then press enter to start')
@@ -49,7 +49,7 @@ def main():
             global frq_cid 
             #frq_cid = frq_fig.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [fft_ybg,frq_fig]))
             vert_lines=[]
-            frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save]))
+            frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save,raw_x]))
             plt.show()
 
 def save_as_csv(folder_to_save,title, column1_title,column2_title,column1_data,column2_data):
@@ -100,7 +100,7 @@ def choose_dir():
     os.chdir('..')
     return folder_to_save
 
-def plotting_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,filename_for_saving,block_boolean):
+def plotting_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,filename_for_saving,folder_to_save, block_boolean):
     """ 
     Plots data for user to look at within program
 
@@ -111,14 +111,15 @@ def plotting_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,
     file_name_for_saving: string given for saving file for later referece
     block_boolean: True or False, tells if program waits for figure to close
     """
-    print 'plot_data_for_inspection was called'
     plot_figure, plot_axis = plt.subplots()
     plt.plot(xdata,ydata)
     plt.xlabel(plot_xlabel)
     plt.ylabel(plot_ylabel)
     plt.suptitle(plot_title)
     plt.show(block=block_boolean)
+    os.chdir(folder_to_save)
     plt.savefig(filename_for_saving)
+    os.chdir('..')
     return plot_figure, plot_axis
 
 
@@ -154,7 +155,6 @@ def choose_files(folder_to_save):
 
 # assumes a csv file, as all data stored from ice lab is in CSV format
 def import_data(filename):
-        print "import_data called"
 	raw_data = np.loadtxt(open(filename,"rb"),delimiter=",")
 	xdat = raw_data[:,0]
 	ydat = raw_data[:,1]
@@ -164,7 +164,7 @@ def import_data(filename):
 def freq_click(event, args_list):
         print "freq_click called"
         #fft_ybg,frq_fig = args_list
-        frq_x,fft_ybg,plot_figure,plot_axis,vert_lines, filt_y, filt_ybg,folder_to_save = args_list
+        frq_x,fft_ybg,plot_figure,plot_axis,vert_lines, filt_y, filt_ybg,folder_to_save, raw_x = args_list
 
 	plt.xlim(plt.gca().get_xlim())
 	plt.ylim(plt.gca().get_ylim())
@@ -207,11 +207,13 @@ def freq_click(event, args_list):
                 # right click, ends collection
 		# ends clicking awareness
 		plot_figure.canvas.mpl_disconnect(frq_cid)
+                os.chdir(folder_to_save)
 		plt.savefig('FFT_filter.eps')
 		with open("freq_window.csv", "w") as f:
 			writer = csv.writer(f)
 			writer.writerow(["Xposition of vert. line"])
 			writer.writerows(zip(vert_lines))
+                os.chdir('..')
 		# first window
                 args_list =[vert_lines,frq_x,filt_y,filt_ybg] 
 		filt_y,filt_ybg = window_filter(args_list)
@@ -220,9 +222,9 @@ def freq_click(event, args_list):
 		#	window_filter(vert_lines[2:4],frq_x)
 		#elif len(vert_lines) > 3:
                 #        print('you might have added an extra window, only first four lines will be recorded')
-		fft_calc(filt_y, filt_ybg, frq_x,folder_to_save)
+		fft_calc(filt_y, filt_ybg, raw_x,folder_to_save)
 
-def fft_calc(filt_y, filt_ybg, frq_x,folder_to_save):
+def fft_calc(filt_y, filt_ybg, raw_x,folder_to_save):
 	# dividing filtered y data from filtered bg data
 	norm_fft = ifft(filt_y)/ifft(filt_ybg)
         save_as_csv(folder_to_save,"fft_data.csv","raw_x","fft_filt",raw_x,norm_fft.real)
@@ -231,7 +233,7 @@ def fft_calc(filt_y, filt_ybg, frq_x,folder_to_save):
 	#	writer = csv.writer(f)
 	#	writer.writerow(["raw_x","fft_filt"])
 	#	writer.writerows(rows)
-	plot_data(raw_x,norm_fft.real)
+	plot_data(raw_x,norm_fft.real,folder_to_save)
 
 
 
@@ -271,36 +273,29 @@ def window_filter(args_list):
         return filt_y,filt_ybg
 
 
-def plot_data(x,y):
-        print "plot_data called"
+def plot_data(x,y,folder_to_save):
 	# variables I will need in different scopes
-        global xcoords,ycoords
-	# list of x and y values
-	xcoords = []
-	ycoords = []
-	fig = plt.figure()
-	ax = fig.add_subplot(111)
-	ax.plot(x,y)
-	plt.suptitle('Divide and Filtered Spectrum')
-	plt.xlabel('Wavenumber cm-1')
-	plt.ylabel('Relative Intensity')
-	plt.show(block=False)
-	plt.xlim(plt.gca().get_xlim())
-	plt.ylim(plt.gca().get_ylim())
-	plt.savefig('dv_filt_spectrum.pdf')
-	order = input('Zoom to liking and then enter what order polynomial for continuum fit\n:')
+        # global xcoords,ycoords
+	# # list of x and y values
+	# xcoords = []
+	# ycoords = []
+        plot_figure,plot_axis = plotting_data_for_inspection(x,y,"Divide and Filtered Spectrum","Wavenumber cm-1","Relative Intensity","dv_filt_spectrum.pdf",folder_to_save, False)
+	# plt.xlim(plt.gca().get_xlim())
+	# plt.ylim(plt.gca().get_ylim())
+	order = str(raw_input('Zoom to liking and then enter what order polynomial for continuum fit\n:'))
+        xcoords,ycoords = [],[]
 	# tells python to turn on awareness for button presses
-	cid = fig.canvas.mpl_connect('button_press_event', onclick)
+        cid = plot_figure.canvas.mpl_connect('button_press_event', lambda event: (onclick, [xcoords,ycoords,plot_figure,plot_axis]))
 	print 'Left to add, middle to remove nearest, and right to finish'
 	plt.show()
 
 # for creating continuum fit to divide out
-def onclick(event):
+def onclick(event,argslist):
         print "onclick called"
-	global fig,fig2,ax,ax2,cid,x,y,xcoords,ycoords,order,pvals
+        xcoords,ycoords,plot_figure,plot_axis= argslist
+	# global fig,fig2,ax,ax2,cid,x,y,xcoords,ycoords,order,pvals
 	plt.xlim(plt.gca().get_xlim())
 	plt.ylim(plt.gca().get_ylim())
-	# print(('button: ',event.button))
 	if event.button==1: 
                 # left click
 		try:
@@ -355,17 +350,19 @@ def onclick(event):
 		plt.draw()
 	if event.button==3:
 		# right click,ends clicking awareness
+                os.chdir(folder_to_save)
 		plt.savefig('continuum_chosen.pdf')
 		# Saving polynomial eqn used in continuum divide for reference
 		with open("continuum_polynomial.txt", "w") as save_file:
 			save_file.write("%s *x^ %d  " %(pvals[0],0))
 			for i in (xrange(len(pvals))):
 				save_file.write("+ %s *x^ %d  " %(pvals[i+1],i+1))
+                os.chdir('..')
 		calc_coeffs(pvals)
 
 def calc_coeffs(pvals):
         print "calc_coeffs called"
-	global fig,fig2,ax,ax2,cid,x,y,xcoords,ycoords,order
+	# global fig,fig2,ax,ax2,cid,x,y,xcoords,ycoords,order
 	fit_y = pvals(x)
 	# flattens the continuum
 	new_continuum = y / fit_y
@@ -374,8 +371,7 @@ def calc_coeffs(pvals):
 	# remove runtime errors when taking negative log and dividing
 	err_settings = np.seterr(invalid='ignore')
 	alpha_coeffs = -np.log(new_continuum) / thickness
-	fig2 = plt.figure()
-	ax2 = fig2.add_subplot(111)
+	fig2,ax2 = plt.subplots()
 	plt.suptitle('Alpha Coefficients')
 	plt.show(block=False)
 	ax2.plot(x,alpha_coeffs)
@@ -408,10 +404,10 @@ def calc_coeffs(pvals):
 
         save_as_csv("11200_peak.csv","x","y",xm2,ym2)
 
-        with open("11200_peak.csv","w") as f:
-		writer = csv.writer(f)
-		writer.writerow(["x","y"])
-		writer.writerows(r2)
+        # with open("11200_peak.csv","w") as f:
+	# 	writer = csv.writer(f)
+	# 	writer.writerow(["x","y"])
+	# 	writer.writerows(r2)
 
 	area10000=trapz(ym1,xm1)
 	area11200=trapz(ym2,xm2)
