@@ -20,12 +20,12 @@ import csv
 
 def main():
     print("main called")
-    choose_dir()
+    folder_to_save = choose_dir()
     #choose files for analysis
-    raw_x,raw_y, raw_xbg,raw_ybg = choose_files()
+    raw_x,raw_y, raw_xbg,raw_ybg = choose_files(folder_to_save)
 
     print("plotting imported data...")
-    plotting_data_for_inspection(raw_x,raw_y,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawspectrum.pdf',False)
+    plotting_data_for_inspection(raw_x,raw_y,'Raw Data','Wavenumber (cm-1)','% Transmittance','rawspectrum.pdf',False)
     plotting_data_for_inspection(raw_xbg,raw_ybg,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawbackground.pdf',False)
 
     #user chooses method after inspecting plots
@@ -41,20 +41,22 @@ def main():
             # fft option was chosen
             choosing = False
             frq_x,frq_xbg,fft_y,fft_ybg = fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg)
-            plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',False)
+            plot_figure, plot_axis = plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',False)
             filt_y = fft_y.copy()
             filt_ybg = fft_ybg.copy()
             raw_input('zoom to liking, then press enter to start')
             print 'Left to add, middle to remove nearest, and right to finish'
             global frq_cid 
-            frq_cid = frq_fig.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [fft_ybg,frq_fig]))
+            #frq_cid = frq_fig.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [fft_ybg,frq_fig]))
+            vert_lines=[]
+            frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg]))
             plt.show()
 
 
 
 
 
-def fft_calculations(raw_x,raw_y,raw_xbg,raw_ybg): 
+def fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg): 
     """ calculates FFT of data for use in nipping unwanted frequencies"""
     # finds FFT of ydata
     fft_y = fft(raw_y)
@@ -86,11 +88,12 @@ def choose_dir():
     os.chdir(folder_to_save)
 
     # recording date and time that program is run, saving it to folder
-    with open("time_created.txt", "w") as text_file: 
+    with open(str(folder_to_save) + "time_created.txt", "w") as text_file: 
         text_file.write("Time this program was run: {} \n".format(time.strftime("%Y-%m-%d %H:%M")))
+    os.chdir('..')
+    return folder_to_save
 
-
-def plot_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,filename_for_saving,block_boolean):
+def plotting_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,filename_for_saving,block_boolean):
     """ 
     Plots data for user to look at within program
 
@@ -102,32 +105,31 @@ def plot_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,file
     block_boolean: True or False, tells if program waits for figure to close
     """
     print 'plot_data_for_inspection was called'
+    plot_figure, plot_axis = plt.subplots()
     plt.plot(xdata,ydata)
-    plt.suptitle('Raw Spectrum')
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
+    plt.xlabel(plot_xlabel)
+    plt.ylabel(plot_ylabel)
     plt.suptitle(plot_title)
     plt.show(block=block_boolean)
     plt.savefig(filename_for_saving)
+    return plot_figure, plot_axis
 
 
-def choose_files():
+def choose_files(folder_to_save):
     """ 
     Lets user determine which files will be imported for analysis
     and saves preferences for reference later on
     """
-    print 'choose_files() was called'
-    #raw_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_003_92K_VIS.CSV'
-    raw_import = str(input('enter a raw dataset for analysis'))
+    #raw_import = str(raw_input('Enter a raw dataset for analysis\n:'))
+    raw_import ='RawData.csv' 
     print  "\nGot it! Importing now... \n"
     raw_x,raw_y = import_data(raw_import)
 
-    print "enter a raw background for analysis"
-    #bg_import = '/Users/GThompson/Documents/NAU STUFF NOT DROPBOX/data_archive_2016/2016-04-01_CH4/2016-04-01_CH4_002_92K_Background_VIS.CSV' 
-    bg_import = input('enter a raw background for analysis')
+    #bg_import = str(raw_input('Enter a raw background for analysis\n:'))
+    bg_import ='BackgroundData.csv' 
     print  "\nGot it! Importing now... \n"
     raw_xbg,raw_ybg = import_data(bg_import)
-
+    os.chdir(folder_to_save)
     with open("data_files_used.txt", "w") as text_file:
             text_file.write("Raw data file used: {} \n".format(raw_import))
             text_file.write("Raw background data file used: {}".format(bg_import))
@@ -139,6 +141,7 @@ def choose_files():
     # saving text file of temperature for later use in plotting
     with open("temperature.txt","w") as f:
             f.write(folder_to_save[-5:-1])
+    os.chdir('..')
     return raw_x, raw_y,raw_xbg,raw_ybg
 
 
@@ -153,8 +156,8 @@ def import_data(filename):
 
 def freq_click(event, args_list):
         print "freq_click called"
-        vert_lines = []
-        fft_ybg,frq_fig = args_list
+        #fft_ybg,frq_fig = args_list
+        frq_x,fft_ybg,plot_figure,plot_axis,vert_lines, filt_y, filt_ybg = args_list
 
 	plt.xlim(plt.gca().get_xlim())
 	plt.ylim(plt.gca().get_ylim())
@@ -164,7 +167,7 @@ def freq_click(event, args_list):
 		# if button_lick = right: finish
 		# add clicked data points to list
 		vert_lines.append(event.xdata)
-		frq_ax.plot(frq_x,np.log(np.abs(fft_ybg)),color='blue')
+		plot_axis.plot(frq_x,np.log(np.abs(fft_ybg)),color='blue')
 		plt.axvline(x=vert_lines[-1],color='black')
 		plt.xlabel('Cycles/Wavenumber')
 		plt.ylabel('Relative Intensity')
@@ -177,9 +180,9 @@ def freq_click(event, args_list):
 		xlims = plt.gca().get_xlim()
 		ylims = plt.gca().get_ylim()
 		# clears axes, to get rid of old scatter points
-		frq_ax.cla()
+		plot_axis.cla()
 		# re-plots spectrum
-		frq_ax.plot(frq_x,np.log(np.abs(fft_ybg)),color='blue')
+		plot_axis.plot(frq_x,np.log(np.abs(fft_ybg)),color='blue')
 		# sets axes limits to original values
 		plt.xlim(xlims)
 		plt.ylim(ylims)
@@ -196,23 +199,23 @@ def freq_click(event, args_list):
 	if event.button==3:
                 # right click, ends collection
 		# ends clicking awareness
-		frq_fig.canvas.mpl_disconnect(frq_cid)
+		plot_figure.canvas.mpl_disconnect(frq_cid)
 		plt.savefig('FFT_filter.eps')
 		with open("freq_window.csv", "w") as f:
 			writer = csv.writer(f)
 			writer.writerow(["Xposition of vert. line"])
 			writer.writerows(zip(vert_lines))
 		# first window
-		window_filter(vert_lines,frq_x)
-		if len(vert_lines) > 2:
-                        # second window if desired
-			window_filter(vert_lines[2:4],frq_x)
-		elif len(vert_lines) > 3:
-                        print('you might have added an extra window, only first four lines will be recorded')
-		fft_calc(norm_fft, frq_x)
+                args_list =[vert_lines,frq_x,filt_y,filt_ybg] 
+		filt_y,filt_ybg = window_filter(args_list)
+		#if len(vert_lines) > 2:
+                #        # second window if desired
+		#	window_filter(vert_lines[2:4],frq_x)
+		#elif len(vert_lines) > 3:
+                #        print('you might have added an extra window, only first four lines will be recorded')
+		fft_calc(filt_y, filt_ybg, frq_x)
 
-def fft_calc(norm_fft, frq_x):
-        print "fft_calc caled"
+def fft_calc(filt_y, filt_ybg, frq_x):
 	# dividing filtered y data from filtered bg data
 	norm_fft = ifft(filt_y)/ifft(filt_ybg)
 	rows = zip(raw_x,norm_fft.real)
@@ -249,13 +252,15 @@ def sgf_calc():
 	return raw_x,norm_smooth
 
 # range of frequenices to cut out
-def window_filter(vert_lines,frq_x):
-        window_min,window_max=vert_lines[0],vert_lines[1]
+def window_filter(args_list):
+        vert_lines, frq_x, filt_y, filt_ybg = args_list
+        window_min, window_max= vert_lines[-2], vert_lines[-1]
         print "window_filter called"
 	for i in range(len(frq_x)):
 		if (frq_x[i] >= window_min and frq_x[i] <=window_max) or (frq_x[i]>-1*window_max and frq_x[i]<-1*window_min):
 			filt_y[i] = 0
 			filt_ybg[i] = 0
+        return filt_y,filt_ybg
 
 
 def plot_data(x,y):
