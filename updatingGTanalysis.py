@@ -49,7 +49,7 @@ def main():
             global frq_cid 
             #frq_cid = frq_fig.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [fft_ybg,frq_fig]))
             vert_lines=[]
-            frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg]))
+            frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save]))
             plt.show()
 
 def save_as_csv(folder_to_save,title, column1_title,column2_title,column1_data,column2_data):
@@ -72,7 +72,7 @@ def fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg,folder_to_save):
     frq_x = fftfreq(len(fft_y),((max(raw_x)-min(raw_x))/len(fft_y)))
     frq_xbg = fftfreq(len(fft_ybg),((max(raw_xbg)-min(raw_xbg))/len(fft_ybg)))
     # saving raw fft data for later inspection
-    save_as_csv(folder_to_save,"FFT_Raw_bg_data.csv","frq_x","log(abs(fft_bg))",frq_x,np.log(abs(ffty_bg)))
+    save_as_csv(folder_to_save,"FFT_Raw_bg_data.csv","frq_x","log(abs(fft_bg))",frq_x,np.log(abs(fft_ybg)))
     #raw_fft_rows = zip(frq_x,np.log(abs(fft_ybg)))
     # saving raw fft data for later inspection
     #with open("FFT_Raw_bg_data.csv", "w") as f:
@@ -164,7 +164,7 @@ def import_data(filename):
 def freq_click(event, args_list):
         print "freq_click called"
         #fft_ybg,frq_fig = args_list
-        frq_x,fft_ybg,plot_figure,plot_axis,vert_lines, filt_y, filt_ybg = args_list
+        frq_x,fft_ybg,plot_figure,plot_axis,vert_lines, filt_y, filt_ybg,folder_to_save = args_list
 
 	plt.xlim(plt.gca().get_xlim())
 	plt.ylim(plt.gca().get_ylim())
@@ -220,9 +220,9 @@ def freq_click(event, args_list):
 		#	window_filter(vert_lines[2:4],frq_x)
 		#elif len(vert_lines) > 3:
                 #        print('you might have added an extra window, only first four lines will be recorded')
-		fft_calc(filt_y, filt_ybg, frq_x)
+		fft_calc(filt_y, filt_ybg, frq_x,folder_to_save)
 
-def fft_calc(filt_y, filt_ybg, frq_x):
+def fft_calc(filt_y, filt_ybg, frq_x,folder_to_save):
 	# dividing filtered y data from filtered bg data
 	norm_fft = ifft(filt_y)/ifft(filt_ybg)
         save_as_csv(folder_to_save,"fft_data.csv","raw_x","fft_filt",raw_x,norm_fft.real)
