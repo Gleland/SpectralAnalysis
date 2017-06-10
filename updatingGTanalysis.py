@@ -40,7 +40,7 @@ def main():
         elif user_method.lower() == 'f':
             # fft option was chosen
             choosing = False
-            frq_x,frq_xbg,fft_y,fft_ybg = fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg)
+            frq_x,frq_xbg,fft_y,fft_ybg = fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg,folder_to_save)
             plot_figure, plot_axis = plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',False)
             filt_y = fft_y.copy()
             filt_ybg = fft_ybg.copy()
@@ -52,11 +52,17 @@ def main():
             frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg]))
             plt.show()
 
+def save_as_csv(folder_to_save,title, column1_title,column2_title,column1_data,column2_data):
+    os.chdir(folder_to_save)
+    with open(title,"w") as f:
+        writer = csv.writer(f)
+        writer.writerow([column1_title,column2_title])
+        writer.writerows(zip(column1_data,column2_data))
+    os.chdir('..')
 
 
 
-
-def fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg): 
+def fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg,folder_to_save): 
     """ calculates FFT of data for use in nipping unwanted frequencies"""
     # finds FFT of ydata
     fft_y = fft(raw_y)
@@ -65,13 +71,14 @@ def fft_calculation(raw_x,raw_y,raw_xbg,raw_ybg):
     # gets frequencies for FFT of data from array, and sample spacing
     frq_x = fftfreq(len(fft_y),((max(raw_x)-min(raw_x))/len(fft_y)))
     frq_xbg = fftfreq(len(fft_ybg),((max(raw_xbg)-min(raw_xbg))/len(fft_ybg)))
-
-    raw_fft_rows = zip(frq_x,np.log(abs(fft_ybg)))
     # saving raw fft data for later inspection
-    with open("FFT_Raw_bg_data.csv", "w") as f:
-            writer = csv.writer(f)
-            writer.writerow(["frq_x","fft_bg"])
-            writer.writerows(raw_fft_rows)
+    save_as_csv(folder_to_save,"FFT_Raw_bg_data.csv","frq_x","log(abs(fft_bg))",frq_x,np.log(abs(ffty_bg)))
+    #raw_fft_rows = zip(frq_x,np.log(abs(fft_ybg)))
+    # saving raw fft data for later inspection
+    #with open("FFT_Raw_bg_data.csv", "w") as f:
+    #        writer = csv.writer(f)
+    #        writer.writerow(["frq_x","fft_bg"])
+    #        writer.writerows(raw_fft_rows)
     return frq_x, frq_xbg, fft_y, fft_ybg
 
 
@@ -218,11 +225,12 @@ def freq_click(event, args_list):
 def fft_calc(filt_y, filt_ybg, frq_x):
 	# dividing filtered y data from filtered bg data
 	norm_fft = ifft(filt_y)/ifft(filt_ybg)
-	rows = zip(raw_x,norm_fft.real)
-	with open("fft_data.csv", "w") as f:
-		writer = csv.writer(f)
-		writer.writerow(["raw_x","fft_filt"])
-		writer.writerows(rows)
+        save_as_csv(folder_to_save,"fft_data.csv","raw_x","fft_filt",raw_x,norm_fft.real)
+	#rows = zip(raw_x,norm_fft.real)
+	#with open("fft_data.csv", "w") as f:
+	#	writer = csv.writer(f)
+	#	writer.writerow(["raw_x","fft_filt"])
+	#	writer.writerows(rows)
 	plot_data(raw_x,norm_fft.real)
 
 
@@ -375,11 +383,12 @@ def calc_coeffs(pvals):
 	plt.ylabel('Alpha')
 	plt.savefig('alpha_coeffs.pdf')
 	plt.draw()
-	alpha_rows = zip(x,alpha_coeffs)
-	with open("alpha_coeffs.csv", "w") as f:
-		writer = csv.writer(f)
-		writer.writerow(["x","alpha"])
-		writer.writerows(alpha_rows)
+        save_as_csv(folder_to_save,"alpha_coeffs.csv","x","alpha",x,alpha_coeffs)
+	#alpha_rows = zip(x,alpha_coeffs)
+	#with open("alpha_coeffs.csv", "w") as f:
+	#	writer = csv.writer(f)
+	#	writer.writerow(["x","alpha"])
+	#	writer.writerows(alpha_rows)
 
 	# defining where the interesting peaks are
 	c1= (x>10000) & (x<10500)
@@ -391,11 +400,13 @@ def calc_coeffs(pvals):
 	# writing data for plotting later
 	r1 = zip(xm1,ym1)
 	r2 = zip(xm2,ym2)
+        save_as_csv("10000_peak.csv","x","y",xm1,ym1)
+	#with open("10000_peak.csv","w") as f:
+	#	writer = csv.writer(f)
+	#	writer.writerow(["x","y"])
+	#	writer.writerows(r1)
 
-	with open("10000_peak.csv","w") as f:
-		writer = csv.writer(f)
-		writer.writerow(["x","y"])
-		writer.writerows(r1)
+        save_as_csv("11200_peak.csv","x","y",xm2,ym2)
 
         with open("11200_peak.csv","w") as f:
 		writer = csv.writer(f)
