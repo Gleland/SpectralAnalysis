@@ -247,7 +247,6 @@ def sgf_calc(folder_to_save):
 def window_filter(args_list):
         vert_lines, frq_x, filt_y, filt_ybg = args_list
         window_min, window_max= vert_lines[-2], vert_lines[-1]
-        print "window_filter called"
 	for i in range(len(frq_x)):
 		if (frq_x[i] >= window_min and frq_x[i] <=window_max) or (frq_x[i]>-1*window_max and frq_x[i]<-1*window_min):
 			filt_y[i] = 0
