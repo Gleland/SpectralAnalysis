@@ -1,4 +1,4 @@
-# SpectralAnalysis
+# Spectral Analysis
 
 
 This program will calculate absorption coefficients via the Beer-Lambert law from transmission spectra.
@@ -37,8 +37,14 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 
 4. Once the data have been imported, the program will plot both data sets and ask which filtering method the user desires. The options are utilizing a [Savitzky-Golay filter](https://en.wikipedia.org/wiki/Savitzky–Golay_filter) (essentially a low-pass filter) or a Fast Fourier Transformation method (FFT) to manually remove unwanted frequencies. This filter step is used to remove any signal that might come form experimental methods. In the case of my project, there is a signal from relfection of sapphire windows in our laboratory setup. See [Protopapa 2015](https://arxiv.org/pdf/1503.00703.pdf) and [Grundy 2002](http://www.sciencedirect.com/science/article/pii/S0019103501967260) for more on this topic. I would recommend utilizing the FFT method, as this allows the user more control over the data being processed.
 
+![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/fft_choice.gif)
 
-5. Once the user has determined a filtering method, the program will ask for further input for the user's choice. If the Savtizky-Golay filter was chosen, the user definse a window box size and a polynomial for the alogorithm. See [the wikipedia article](https://en.wikipedia.org/wiki/Savitzky–Golay_filter) for more understanding of how it works. If the user chose the FFT option, a FFT is taken of the data, and the user hand selects the frequency to be cut out (see gif at bottom for example). The program listens for mouse clicks on the plot that is displayed, a left click will add a vertical line, a middle click will remove the nearest line, and a right click will tell the program that the user is satisfied with the selection and wants to proceed.
+
+
+5. Once the user has determined a filtering method, the program will ask for further input for the user's choice. If the Savtizky-Golay filter was chosen, the user definse a window box size and a polynomial for the alogorithm. See [the wikipedia article](https://en.wikipedia.org/wiki/Savitzky–Golay_filter) for more understanding of how it works. If the user chose the FFT option, a FFT is taken of the data, and the user hand selects the frequency to be cut out. The program listens for mouse clicks on the plot that is displayed, a left click will add a vertical line, a middle click will remove the nearest line, and a right click will tell the program that the user is satisfied with the selection and wants to proceed.
+
+![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/fft_cut.gif)
+
 
 6. After the filtering process has been completed, the next step is to fit a continuum. This continuum defines where no absorption is occuring. The program will ask the user to zoom in on the region where the continuum wants to be fitted, and then will ask what order polynomial (linear, quadratic, etc) is to be used for creating the continuum. I recommend a cubic fit, as described in [Protopapa 2015](https://arxiv.org/pdf/1503.00703.pdf), as it gave the most consisent results for my project. While the user clicks on the graph, the program fits a polynomial to all the data points that have been added to the graph. A left click adds a point, a middle click remoes the nearest point,a nd a right click ends the collection.
 
@@ -49,12 +55,12 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 
 
 
-##Demo of program, with a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
+## Demo of program, with a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
 ![first gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/full_video.gif) 
 
 
 
-##If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
+# If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
 
 <!---
 -->
