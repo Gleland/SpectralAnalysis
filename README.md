@@ -14,4 +14,9 @@ This will provide all of the necessary files to perform a test case to understan
 
 
 ### Running the code
-Included are two CSV files with example data. BackgroundData.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. First, you will run the code via the terminal with: `python GTanalysis.py`. This will start the program. ![here it is](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part1.gif)
+Included are two CSV files with example data. BackgroundData.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. First, you will run the code via the terminal with: `python GTanalysis.py`. This will start the program. ![first gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part1.gif) The program will ask you for a directory name, this will be where all of the work will be stored. Various plots, csv files, and txt files will be generatred during the program and saved into this directory.
+
+Next will be to import the data used for analysis. The program will first ask for your raw dataset, followed by your background spectrum. These data files do not need to be in the same directory as `GTanalysis.py`, but make sure to give a full path name if this is the case. 
+![second gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part2.gif) After importing these data files, the next step will be for documentation purposes. The program will save the temperature and concenntration of the mixture you are analyzing, for later data processing. The program will ask for both, and will store each answer in a separte txt file within the directory.
+![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part3.gif)
+
