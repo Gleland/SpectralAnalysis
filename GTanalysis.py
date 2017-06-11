@@ -49,7 +49,6 @@ def main():
             vert_lines=[]
             frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save,raw_x]))
             plt.show()
-            print("hello, line 52")
 
 
 
@@ -102,7 +101,7 @@ def plotting_data_for_inspection(xdata,ydata,plot_title,plot_xlabel,plot_ylabel,
     block_boolean: True or False, tells if program waits for figure to close
     """
     plot_figure, plot_axis = plt.subplots()
-    plt.plot(xdata,ydata)
+    plt.plot(xdata,ydata,color='blue')
     plt.xlabel(plot_xlabel)
     plt.ylabel(plot_ylabel)
     plt.suptitle(plot_title)
@@ -118,13 +117,11 @@ def choose_files(folder_to_save):
     Lets user determine which files will be imported for analysis
     and saves preferences for reference later on
     """
-    #raw_import = str(raw_input('Enter a raw dataset for analysis\n:'))
-    raw_import ='RawData.csv' 
+    raw_import = str(raw_input('Enter a raw dataset for analysis\n:'))
     print  "\nGot it! Importing now... \n"
     raw_x,raw_y = import_data(raw_import)
 
-    #bg_import = str(raw_input('Enter a raw background for analysis\n:'))
-    bg_import ='BackgroundData.csv' 
+    bg_import = str(raw_input('Enter a raw background for analysis\n:'))
     print  "\nGot it! Importing now... \n"
     raw_xbg,raw_ybg = import_data(bg_import)
     os.chdir(folder_to_save)
@@ -154,7 +151,6 @@ def import_data(filename):
 
 
 def freq_click(event, args_list):
-        print("hello, line 156")
 	# if button_click = left: add left line
 	# if button_click = middle: removes closest line
 	# if button_lick = right: finish
@@ -166,7 +162,9 @@ def freq_click(event, args_list):
 	if event.button==1: 
 		vert_lines.append(event.xdata)
 		plot_axis.plot(frq_x,np.log(np.abs(fft_ybg)),color='blue')
-		plt.axvline(x=vert_lines[-1],color='black')
+		#plt.axvline(x=vert_lines[-1],color='black')
+                for val in vert_lines:
+		    plt.axvline(x=val,color='black')
 		plt.xlabel('Cycles/Wavenumber')
 		plt.ylabel('Relative Intensity')
 		# draws points as they are added
@@ -216,12 +214,13 @@ def fft_calc(filt_y, filt_ybg, raw_x,folder_to_save):
 
 
 
-def sgf_calc():
+def sgf_calc(folder_to_save):
         # warning when using sgf option
         warnings.filterwarnings(action="ignore", module="scipy",message="^internal gelsd")
         window_param = int(raw_input('Input window box size (must be odd number)\n:'))
         poly_param = int(raw_input('Input polynomial order for smoothing\n:'))
         # saving parameters chosen for future inspection
+        os.chdir(folder_to_save)
         with open("sgf_params.txt", "w") as sgf_file:
                 sgf_file.write("Window parameter used: {} \n".format(window_param))
                 sgf_file.write("Polynomial paramter used: {}".format(poly_param))
@@ -237,6 +236,7 @@ def sgf_calc():
 		writer.writerow([window_param,poly_param])
 		writer.writerow(["raw_x","sgf_filt"])
 		writer.writerows(rows)
+        os.chdir('..')
 	return raw_x,norm_smooth
 
 # range of frequenices to cut out
@@ -263,7 +263,6 @@ def plot_data(x,y,folder_to_save):
 
 # for creating continuum fit to divide out
 def onclick(event,argslist):
-        print("onclick called")
         xcoords,ycoords,plot_figure,plot_axis,order,folder_to_save,x,y = argslist
 	global pvals
 	if event.button==1: 
@@ -336,7 +335,6 @@ def onclick(event,argslist):
                 calc_coeffs(pvals,x,y,folder_to_save)
 
 def calc_coeffs(pvals,x,y,folder_to_save):
-        print "calc_coeffs called"
 	fit_y = pvals(x)
 	# flattens the continuum
 	new_continuum = y / fit_y
