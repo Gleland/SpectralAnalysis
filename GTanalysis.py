@@ -45,10 +45,12 @@ def main():
             filt_ybg = fft_ybg.copy()
             raw_input('Zoom to liking, then press enter to start')
             print 'Left to add, middle to remove nearest, and right to finish'
-            global frq_cid 
+            # global frq_cid 
             vert_lines=[]
             frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save,raw_x]))
             plt.show()
+            plot_figure.canvas.mpl_disconnect(frq_cid)
+            # vert_lines, frq_x, filt_y, filt_ybg = args_dict["vert_lines"],args_dict["frq_x"],args_dict["filt_y"],args_dict["filt_ybg"]
 
 
 
@@ -193,7 +195,7 @@ def freq_click(event, args_list):
 		plt.draw()
 	if event.button==3:
                 # right click, ends clicking awareness 
-		plot_figure.canvas.mpl_disconnect(frq_cid)
+		# plot_figure.canvas.mpl_disconnect(frq_cid)
                 os.chdir(folder_to_save)
 		plt.savefig('FFT_filter.eps')
 		with open("freq_window.csv", "w") as f:
@@ -202,9 +204,11 @@ def freq_click(event, args_list):
 			writer.writerows(zip(vert_lines))
                 os.chdir('..')
 		# first window
-                argslist =[vert_lines,frq_x,filt_y,filt_ybg] 
-		filt_y,filt_ybg = window_filter(argslist)
-		fft_calc(filt_y, filt_ybg, raw_x,folder_to_save)
+                args_dict ={"vert_lines":vert_lines,"frq_x":frq_x,"filt_y":filt_y,"filt_ybg":filt_ybg}
+                plt.close("all")
+                argslist =  [vert_lines,frq_x,filt_y,filt_ybg] 
+     	        filt_y,filt_ybg = window_filter(argslist)
+	        fft_calc(filt_y, filt_ybg, raw_x,folder_to_save)
 
 def fft_calc(filt_y, filt_ybg, raw_x,folder_to_save):
 	# dividing filtered y data from filtered bg data
