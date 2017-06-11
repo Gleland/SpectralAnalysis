@@ -32,7 +32,11 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 
 8. When finished viewing the plot, the user enters `y`, and the program closes. All of the data and plots generated during the program will be saved into the direcotry that was input at the beginning.
 
-#Below is a full gif of the program being executed, for a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
+
+
+
+##Demo of program, with a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
+![first gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/full_video.gif) 
 
 
 
