@@ -23,6 +23,6 @@ Next will be to import the data used for analysis. The program will first ask fo
 
 ![second gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part2.gif) 
 
-After importing these data files, the next step will be for documentation purposes. The program will save the temperature and concenntration of the mixture you are analyzing, for later data processing. The program will ask for both, and will store each answer in a separate txt file within the directory.
+After importing these data files, the program will save the temperature and concenntration of the mixture you are analyzing. The program will ask for both, and will store each answer in a separate txt file within the directory.
 
 ![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part3.gif)
