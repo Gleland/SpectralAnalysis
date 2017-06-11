@@ -14,4 +14,4 @@ This will provide all of the necessary files to perform a test case to understan
 
 
 ### Running the code
-Included are two CSV files with example data. BackgroundData.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. First, you will run the code via the terminal with: `python GTanalysis.py`. This will start the program. !(Here is the first gif)[https://github.com/Gleland/SpectralAnalysis/blob/master/images/part1.gif]
+Included are two CSV files with example data. BackgroundData.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. First, you will run the code via the terminal with: `python GTanalysis.py`. This will start the program. ![here it is](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part1.gif)
