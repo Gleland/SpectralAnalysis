@@ -46,7 +46,13 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 ![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/fft_cut.gif)
 
 
-6. After the filtering process has been completed, the next step is to fit a continuum. This continuum defines where no absorption is occuring. The program will ask the user to zoom in on the region where the continuum wants to be fitted, and then will ask what order polynomial (linear, quadratic, etc) is to be used for creating the continuum. I recommend a cubic fit, as described in [Protopapa 2015](https://arxiv.org/pdf/1503.00703.pdf), as it gave the most consisent results for my project. While the user clicks on the graph, the program fits a polynomial to all the data points that have been added to the graph. A left click adds a point, a middle click remoes the nearest point,a nd a right click ends the collection.
+6. After the filtering process has been completed, the next step is to fit a continuum. This continuum defines where no absorption is occuring. The program will ask the user to zoom in on the region where the continuum wants to be fitted, and then will ask what order polynomial (linear, quadratic, etc) is to be used for creating the continuum. IN the gif below I utilized a third order (cubic) but any fit is available to the user. I used a cubic fit for my work as it gave the most consisent results for my project. While the user clicks on the graph, the program fits a polynomial to all the data points that have been added to the graph. A left click adds a point, a middle click remoes the nearest point, and a right click ends the collection.
+
+
+![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/continuum.gif)
+![third gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/polynomial_order.gif)
+
+
 
 7. After the continuum has been fit, the program asks the user to input the thcikness of the cell used during spectra colelction. This is because the absorption of light depends on the thickness of the cell chamber, via the [Beer-Lambert law](http://life.nthu.edu.tw/~labcjw/BioPhyChem/Spectroscopy/beerslaw.htm). The cell chamber used in my experiemnts was 2 cm, and thus a value of `2` will be entered. Finally, the program will generate absorption coefficients and display them for the user to inspect.
 
