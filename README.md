@@ -70,7 +70,7 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 
 
 
-# If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
+### If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
 
 <!---
 ## Demo of program, with a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
