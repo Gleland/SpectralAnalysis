@@ -71,54 +71,79 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 ## Files saved during program execution
 
 1. 10000_peak.csv
+
  ...To save computation later on, two peaks of interest (10,000 and 11,200 cm-1) are automatically saved as a csv for later analysis. This is helpful for methane and etane mixtures, but can be commented out if undesired.
 2. 11200_peak.csv
+
  ....Same as above, this time for the 11,200 cm-1 peak.
 3. 10000area.txt
+
  ....The trapezoidal rule is invoked on the 10000_peak.csv file to calcualte dthe integrated area.
 4. 11200area.txt
+
  ..* same as above, this time for the 11,200 cm-1 peak.
 5. alpha_coeffs.csv
+
  ....Absorption coefficients calculated during the program, saved as a csv file for later plotting and calcualtions as needed
 6. alpha_coeffs.pdf
+
  ....screenshot of the absorption coefficients taken during program execution for later reference
 7. continuum_chosen.pdf
+
  ....screenshot of the continuum chosen during program execution for later refernce
 8. continuum_polynomial.txt
+
  ....The continuum polynomial is saved for future use if someone wants to plot the curve again
 9. dv_filt_specturm.pdf
+
  ....The specturm after it has been filtered and a background divie (raw/bg) has been performed
 10. continuum_polynomial.txt
+
  ....The continuum polynomial is saved for future use if someone wants to plot the curve again
 11. dv_filt_specturm.pdf
+
  ....The specturm after it has been filtered and a background divie (raw/bg) has been performed
 12. continuum_polynomial.txt
+
  ....The continuum polynomial is saved for future use if someone wants to plot the curve again
 13. dv_filt_specturm.pdf
+
  ....The specturm after it has been filtered and a background divie (raw/bg) has been performed
 14. fft_data.csv
+
  ....the raw data after the fft filter has been applied for future reference if needed
 15. FFT_filter.pdf
+
  ....A screenshot of the filter window chosen during program execution
 16. freq_window.csv
+
  ....a csv file of the values picked for the fft filter
 17. FFT_Raw_bg_data.csv
+
  ....same as above, but for the background data
 18. fft_background.pdf
+
  ....a screenshot of the fft performed on the background data during program execution
 19. rawbackground.pdf
+
  ....a screenshot of the raw background data being plotted at the beginning of the progrma for future reference
 20. rawspecturm.pdf
+
  ....same as above but for the raw data.
 21. temperature.txt
+
  ....a txt file with the user's input of the tempreature of the sample
 22. concentration.txt
+
  .... a txt file with the user's input of the concentration of the sample
 23. data_files_used.txt
+
  ....a txt file with the user's input of the data files used during program execution
 24. time_created.txt
+
  ....a timestamp of when the program was executed
 ### If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
+
 
 <!---
 ## Demo of program, with a pure methane (Ch4) mixture at a temperature of 92.0 Kelvin.
