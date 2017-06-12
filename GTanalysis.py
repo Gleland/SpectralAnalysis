@@ -197,7 +197,7 @@ def freq_click(event, args_list):
                 # right click, ends clicking awareness 
 		# plot_figure.canvas.mpl_disconnect(frq_cid)
                 os.chdir(folder_to_save)
-		plt.savefig('FFT_filter.eps')
+		plt.savefig('FFT_filter.pdf')
 		with open("freq_window.csv", "w") as f:
 			writer = csv.writer(f)
 			writer.writerow(["Xposition of vert. line"])
