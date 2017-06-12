@@ -56,10 +56,15 @@ Included are two CSV files with example data. BackgroundData.csv and RawData.csv
 
 7. After the continuum has been fit, the program asks the user to input the thcikness of the cell used during spectra colelction. This is because the absorption of light depends on the thickness of the cell chamber, via the [Beer-Lambert law](http://life.nthu.edu.tw/~labcjw/BioPhyChem/Spectroscopy/beerslaw.htm). The cell chamber used in my experiemnts was 2 cm, and thus a value of `2` will be entered. Finally, the program will generate absorption coefficients and display them for the user to inspect.
 
+![eighth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/thickness-and-finished.gif)
+![ninth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/abs_coeffs.gif)
+
+
+
 8. When finished viewing the plot, the user enters `y`, and the program closes. All of the data and plots generated during the program will be saved into the direcotry that was input at the beginning.
 
 
-![eigth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/thickness-and-finished.gif)
+![tenth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/done.gif)
 
 
 
