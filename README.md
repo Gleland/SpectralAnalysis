@@ -41,12 +41,12 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 
 
 
-5. Once the user has determined a filtering method, the program will ask for further input for the user's choice. If the Savtizky-Golay filter was chosen, the user definse a window box size and a polynomial for the algorithm. See [the wikipedia article](https://en.wikipedia.org/wiki/Savitzky–Golay_filter) for more understanding of how it works. If the user chose the FFT option, a FFT is taken of the data, and the user hand selects the frequency to be cut out. The program listens for mouse clicks on the plot that is displayed, a left click will add a vertical line, a middle click will remove the nearest line, and a right click will tell the program that the user is satisfied with the selection and wants to proceed. In the gif provided one can see that the FFT is symmetric. The program will take the selection of frequencies (in the gif it is ~0.7 cm) and set them to zero, as well as their counterparts that are on the other side of the origin.
+5. Once the user has determined a filtering method, the program will ask for further input for the user's choice. If the Savtizky-Golay filter was chosen, the user defines a window box size and a polynomial for the algorithm. See [the wikipedia article](https://en.wikipedia.org/wiki/Savitzky–Golay_filter) for more understanding of how it works. If the user chose the FFT option, a FFT is taken of the data, and the user hand selects the frequency to be cut out. The program listens for mouse clicks on the plot that is displayed, a left click will add a vertical line, a middle click will remove the nearest line, and a right click will tell the program that the user is satisfied with the selection and wants to proceed. In the gif provided one can see that the FFT is symmetric. The program will take the selection of frequencies (in the gif it is ~0.7 cm) and set them to zero, as well as their counterparts that are on the other side of the origin.
 
 ![fifth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/fft_cut.gif)
 
 
-6. After the filtering process has been completed, the next step is to fit a continuum. This continuum defines where no absorption is occuring. The program will ask the user to zoom in on the region where the continuum wants to be fitted, and then will ask what order polynomial (linear, quadratic, etc) is to be used for creating the continuum. In the gif below I utilized a third order (cubic) but any fit is available to the user. I used a cubic fit for my work as it gave the most consisent results for my project. While the user clicks on the graph, the program fits a polynomial to all the data points that have been added to the graph. A left click adds a point, a middle click remoes the nearest point, and a right click ends the collection.
+6. After the filtering process has been completed, the next step is to fit a continuum. This continuum defines where no absorption is occurring. The program will ask the user to zoom in on the region where the continuum wants to be fitted, and then will ask what order polynomial (linear, quadratic, etc) is to be used for creating the continuum. In the gif below I utilized a third order (cubic) but any fit is available to the user. I used a cubic fit for my work as it gave the most consistent results for my project. While the user clicks on the graph, the program fits a polynomial to all the data points that have been added to the graph. A left click adds a point, a middle click removes the nearest point, and a right click ends the collection.
 
 
 ![sixth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/continuum.gif)
@@ -54,14 +54,14 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 
 
 
-7. After the continuum has been fit, the program asks the user to input the thcikness of the cell used during spectra colelction. This is because the absorption of light depends on the thickness of the cell chamber, via the [Beer-Lambert law](http://life.nthu.edu.tw/~labcjw/BioPhyChem/Spectroscopy/beerslaw.htm). The cell chamber used in my experiemnts was 2 cm, and thus a value of `2` will be entered. Finally, the program will generate absorption coefficients and display them for the user to inspect. Notice that not all of the spectrum can be relied upon for legitamate data, the end points (less than 90000 cm-1 and greater than 15000 cm-1) are not considered significant, so be sure not to include these values in calculations.
+7. After the continuum has been fit, the program asks the user to input the thickness of the cell used during spectra collection. This is because the absorption of light depends on the thickness of the cell chamber, via the [Beer-Lambert law](http://life.nthu.edu.tw/~labcjw/BioPhyChem/Spectroscopy/beerslaw.htm). The cell chamber used in my experiments was 2 cm, and thus a value of `2` will be entered. Finally, the program will generate absorption coefficients and display them for the user to inspect. Notice that not all of the spectrum can be relied upon for legitimate data, the end points (less than 90000 cm-1 and greater than 15000 cm-1) are not considered significant, so be sure not to include these values in calculations.
 
 ![eighth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/thickness-and-finished.gif)
 ![ninth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/abs_coeffs.gif)
 
 
 
-8. When finished viewing the plot, the user enters `y`, and the program closes. All of the data and plots generated during the program will be saved into the direcotry that was input at the beginning.
+8. When finished viewing the plot, the user enters `y`, and the program closes. All of the data and plots generated during the program will be saved into the directory that was input at the beginning.
 
 
 ![tenth gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/done.gif)
@@ -70,27 +70,27 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 
 ## Files saved during program execution
 
-1. 10000_peak.csv: To save computation later on, two peaks of interest (10,000 and 11,200 cm-1) are automatically saved as a csv for later analysis. This is helpful for methane and etane mixtures, but can be commented out if undesired.
+1. 10000_peak.csv: To save computation later on, two peaks of interest (10,000 and 11,200 cm-1) are automatically saved as a csv for later analysis. This is helpful for methane and ethane mixtures, but can be commented out if undesired.
 2. 11200_peak.csv: Same as above, this time for the 11,200 cm-1 peak.
-3. 10000area.txt: The trapezoidal rule is invoked on the 10000_peak.csv file to calcualte dthe integrated area.
+3. 10000area.txt: The trapezoidal rule is invoked on the 10000_peak.csv file to calculate the integrated area.
 4. 11200area.txt: same as above, this time for the 11,200 cm-1 peak.
-5. alpha_coeffs.csv: Absorption coefficients calculated during the program, saved as a csv file for later plotting and calcualtions as needed
+5. alpha_coeffs.csv: Absorption coefficients calculated during the program, saved as a csv file for later plotting and calculations as needed
 6. alpha_coeffs.pdf: screenshot of the absorption coefficients taken during program execution for later reference
-7. continuum_chosen.pdf: screenshot of the continuum chosen during program execution for later refernce
+7. continuum_chosen.pdf: screenshot of the continuum chosen during program execution for later reference
 8. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-9. dv_filt_specturm.pdf: The specturm after it has been filtered and a background divie (raw/bg) has been performed
+9. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 10. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-11. dv_filt_specturm.pdf: The specturm after it has been filtered and a background divie (raw/bg) has been performed
+11. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 12. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-13. dv_filt_specturm.pdf: The specturm after it has been filtered and a background divie (raw/bg) has been performed
-14. fft_data.csv: the raw data after the fft filter has been applied for future reference if needed
+13. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+14. fft_data.csv: the raw data after the FFT filter has been applied for future reference if needed
 15. FFT_filter.pdf: A screenshot of the filter window chosen during program execution
-16. freq_window.csv: a csv file of the values picked for the fft filter
+16. freq_window.csv: a csv file of the values picked for the FFT filter
 17. FFT_Raw_bg_data.csv: same as above, but for the background data
-18. fft_background.pdf: a screenshot of the fft performed on the background data during program execution
-19. rawbackground.pdf: a screenshot of the raw background data being plotted at the beginning of the progrma for future reference
+18. fft_background.pdf: a screenshot of the FFT performed on the background data during program execution
+19. rawbackground.pdf: a screenshot of the raw background data being plotted at the beginning of the program for future reference
 20. rawspecturm.pdf: same as above but for the raw data.
-21. temperature.txt: a txt file with the user's input of the tempreature of the sample
+21. temperature.txt: a txt file with the user's input of the temperature of the sample
 22. concentration.txt: a txt file with the user's input of the concentration of the sample
 23. data_files_used.txt: a txt file with the user's input of the data files used during program execution
 24. time_created.txt: a timestamp of when the program was executed
