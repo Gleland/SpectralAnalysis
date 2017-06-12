@@ -70,30 +70,30 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 
 ## Files saved during program execution
 
-1. 10000_peak.csv: To save computation later on, two peaks of interest (10,000 and 11,200 cm-1) are automatically saved as a csv for later analysis. This is helpful for methane and ethane mixtures, but can be commented out if undesired.
-2. 11200_peak.csv: Same as above, this time for the 11,200 cm-1 peak.
-3. 10000area.txt: The trapezoidal rule is invoked on the 10000_peak.csv file to calculate the integrated area.
-4. 11200area.txt: same as above, this time for the 11,200 cm-1 peak.
-5. alpha_coeffs.csv: Absorption coefficients calculated during the program, saved as a csv file for later plotting and calculations as needed
-6. alpha_coeffs.pdf: screenshot of the absorption coefficients taken during program execution for later reference
-7. continuum_chosen.pdf: screenshot of the continuum chosen during program execution for later reference
-8. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-9. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
-10. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-11. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
-12. continuum_polynomial.txt: The continuum polynomial is saved for future use if someone wants to plot the curve again
-13. dv_filt_specturm.pdf: The spectrum after it has been filtered and a background divide (raw/background) has been performed
-14. fft_data.csv: the raw data after the FFT filter has been applied for future reference if needed
-15. FFT_filter.pdf: A screenshot of the filter window chosen during program execution
-16. freq_window.csv: a csv file of the values picked for the FFT filter
-17. FFT_Raw_bg_data.csv: same as above, but for the background data
-18. fft_background.pdf: a screenshot of the FFT performed on the background data during program execution
-19. rawbackground.pdf: a screenshot of the raw background data being plotted at the beginning of the program for future reference
-20. rawspecturm.pdf: same as above but for the raw data.
-21. temperature.txt: a txt file with the user's input of the temperature of the sample
-22. concentration.txt: a txt file with the user's input of the concentration of the sample
-23. data_files_used.txt: a txt file with the user's input of the data files used during program execution
-24. time_created.txt: a timestamp of when the program was executed
+1. __10000_peak.csv__: To save computation later on, two peaks of interest (10,000 and 11,200 cm-1) are automatically saved as a csv for later analysis. This is helpful for methane and ethane mixtures, but can be commented out if undesired.
+2. __11200_peak.csv__: Same as above, this time for the 11,200 cm-1 peak.
+3. __10000area.txt__: The trapezoidal rule is invoked on the 10000_peak.csv file to calculate the integrated area.
+4. __11200area.txt__: same as above, this time for the 11,200 cm-1 peak.
+5. __alpha_coeffs.csv__: Absorption coefficients calculated during the program, saved as a csv file for later plotting and calculations as needed
+6. __alpha_coeffs.pdf__: screenshot of the absorption coefficients taken during program execution for later reference
+7. __continuum_chosen.pdf__: screenshot of the continuum chosen during program execution for later reference
+8. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
+9. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+10. __ continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
+11. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+12. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
+13. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+14. __fft_data.csv__: the raw data after the FFT filter has been applied for future reference if needed
+15. __FFT_filter.pdf__: A screenshot of the filter window chosen during program execution
+16. __freq_window.csv__: a csv file of the values picked for the FFT filter
+17. __FFT_Raw_bg_data.csv__: same as above, but for the background data
+18. __fft_background.pdf__: a screenshot of the FFT performed on the background data during program execution
+19. __rawbackground.pdf__: __a screenshot of the raw background data being plotted at the beginning of the program for future reference
+20. __rawspecturm.pdf__: same as above but for the raw data.
+21. __temperature.txt__: a txt file with the user's input of the temperature of the sample
+22. __concentration.txt__: a txt file with the user's input of the concentration of the sample
+23. __data_files_used.txt__: a txt file with the user's input of the data files used during program execution
+24. __time_created.txt__: a timestamp of when the program was executed
 
 ### If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
 
