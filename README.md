@@ -79,7 +79,7 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 7. __continuum_chosen.pdf__: screenshot of the continuum chosen during program execution for later reference
 8. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
 9. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
-10. __ continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
+10. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
 11. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 12. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
 13. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
