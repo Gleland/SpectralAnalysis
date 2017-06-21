@@ -34,7 +34,7 @@ def main():
         if user_method.lower() == 's':
             # savitsky-golay option was chosen
             choosing = False
-            raw_x, norm_smooth = sgf_calc()
+            raw_x, norm_smooth = sgf_calc(folder_to_save,raw_y,raw_ybg,raw_x)
             plot_data(raw_x,norm_smooth,folder_to_save)
         elif user_method.lower() == 'f':
             # fft option was chosen
@@ -218,7 +218,7 @@ def fft_calc(filt_y, filt_ybg, raw_x,folder_to_save):
 
 
 
-def sgf_calc(folder_to_save):
+def sgf_calc(folder_to_save,raw_y,raw_ybg,raw_x):
         # warning when using sgf option
         warnings.filterwarnings(action="ignore", module="scipy",message="^internal gelsd")
         window_param = int(raw_input('Input window box size (must be odd number)\n:'))
