@@ -28,7 +28,7 @@ def main():
     plotting_data_for_inspection(raw_xbg,raw_ybg,'Raw Background','Wavenumber (cm-1)','% Transmittance','rawbackground.pdf',folder_to_save, False)
 
     #user chooses method after inspecting plots
-    user_method = str(raw_input('Press "s" for savitsky-golay filter, or "f" for fft filter\n:'))
+    user_method = str(input('Press "s" for savitsky-golay filter, or "f" for fft filter\n:'))
     choosing = True
     while choosing:
         if user_method.lower() == 's':
@@ -44,8 +44,8 @@ def main():
             plot_figure, plot_axis = plotting_data_for_inspection(frq_x,np.log(abs(fft_ybg)),'FFT of raw bg','Cycles/Wavenumber (cm)','Log(Power/Frequency)','fft_background.pdf',folder_to_save, False)
             filt_y = fft_y.copy()
             filt_ybg = fft_ybg.copy()
-            raw_input('Zoom to liking, then press enter to start')
-            print 'Left to add, middle to remove nearest, and right to finish'
+            input('Zoom to liking, then press enter to start')
+            print('Left to add, middle to remove nearest, and right to finish')
             # global frq_cid 
             vert_lines=[]
             frq_cid = plot_figure.canvas.mpl_connect('button_press_event',lambda event: freq_click(event, [frq_x,fft_ybg,plot_figure,plot_axis,vert_lines,filt_y,filt_ybg,folder_to_save,raw_x]))
@@ -60,7 +60,7 @@ def save_as_csv(folder_to_save,title, column1_title,column2_title,column1_data,c
     with open(title,"w") as f:
         writer = csv.writer(f)
         writer.writerow([column1_title,column2_title])
-        writer.writerows(zip(column1_data,column2_data))
+        writer.writerows(list(zip(column1_data,column2_data)))
     os.chdir('..')
 
 
@@ -82,7 +82,7 @@ def choose_dir():
     time stamp is created for future reference
     """
     # Where all work to follow will be saved
-    folder_to_save = raw_input('Type name of directory to save all data being created\n:')
+    folder_to_save = input('Type name of directory to save all data being created\n:')
     # make and change to directory named by user
     os.mkdir(folder_to_save)
     os.chdir(folder_to_save)
@@ -120,24 +120,24 @@ def choose_files(folder_to_save):
     Lets user determine which files will be imported for analysis
     and saves preferences for reference later on
     """
-    raw_import = str(raw_input('Enter a raw dataset for analysis\n:'))
-    print  "\nGot it! Importing now... \n"
+    raw_import = str(input('Enter a raw dataset for analysis\n:'))
+    print("\nGot it! Importing now... \n")
     raw_x,raw_y = import_data(raw_import)
 
-    bg_import = str(raw_input('Enter a raw background for analysis\n:'))
-    print  "\nGot it! Importing now... \n"
+    bg_import = str(input('Enter a raw background for analysis\n:'))
+    print("\nGot it! Importing now... \n")
     raw_xbg,raw_ybg = import_data(bg_import)
     os.chdir(folder_to_save)
     with open("data_files_used.txt", "w") as text_file:
             text_file.write("Raw data file used: {} \n".format(raw_import))
             text_file.write("Raw background data file used: {}".format(bg_import))
 
-    concentration = str(raw_input('Enter concentration of mixture\n:'))
+    concentration = str(input('Enter concentration of mixture\n:'))
     # saving text file of concentration for later use in plotting
     with open("concentration.txt","w") as f:
             f.write(concentration)
 
-    temperature = str(raw_input('Enter temperature of mixture\n:'))
+    temperature = str(input('Enter temperature of mixture\n:'))
     # saving text file of temperature for later use in plotting
     with open("temperature.txt","w") as f:
             f.write(temperature)
@@ -202,7 +202,7 @@ def freq_click(event, args_list):
                 with open("freq_window.csv", "w") as f:
                         writer = csv.writer(f)
                         writer.writerow(["Xposition of vert. line"])
-                        writer.writerows(zip(vert_lines))
+                        writer.writerows(list(zip(vert_lines)))
                 os.chdir('..')
                 # first window
                 args_dict ={"vert_lines":vert_lines,"frq_x":frq_x,"filt_y":filt_y,"filt_ybg":filt_ybg}
@@ -223,8 +223,8 @@ def sgf_calc(args_list):
         folder_to_save, raw_y, raw_ybg, raw_x = args_list
         # warning when using sgf option
         warnings.filterwarnings(action="ignore", module="scipy",message="^internal gelsd")
-        window_param = int(raw_input('Input window box size (must be odd number)\n:'))
-        poly_param = int(raw_input('Input polynomial order for smoothing\n:'))
+        window_param = int(input('Input window box size (must be odd number)\n:'))
+        poly_param = int(input('Input polynomial order for smoothing\n:'))
         # saving parameters chosen for future inspection
         os.chdir(folder_to_save)
         with open("sgf_params.txt", "w") as sgf_file:
@@ -235,7 +235,7 @@ def sgf_calc(args_list):
         smoothed_ybg =sgf(raw_ybg,window_param,poly_param,delta=(abs(raw_ybg)[1]-raw_ybg)[0])
         # dividing filtered y data from filtered bg data
         norm_smooth = smoothed_y / smoothed_ybg
-        rows = zip(raw_x,norm_smooth)
+        rows = list(zip(raw_x,norm_smooth))
         with open("sgf_data.csv", "w") as f:
                 writer = csv.writer(f)
                 writer.writerow(["window","polynomail order"])
@@ -258,12 +258,12 @@ def window_filter(args_list):
 
 def plot_data(x,y,folder_to_save):
         plot_figure,plot_axis = plotting_data_for_inspection(x,y,"Divide and Filtered Spectrum","Wavenumber cm-1","Relative Intensity","dv_filt_spectrum.pdf",folder_to_save, False)
-        order = str(raw_input('Zoom to liking and then enter what order polynomial for continuum fit\n:'))
+        order = int(input('Zoom to liking and then enter what order polynomial for continuum fit\n:'))
         xcoords,ycoords = [],[]
         # tells python to turn on awareness for button presses
         global cid
         cid = plot_figure.canvas.mpl_connect('button_press_event', lambda event: onclick(event, [xcoords,ycoords,plot_figure,plot_axis,order,folder_to_save,x,y]))
-        print 'Left to add, middle to remove nearest, and right to finish'
+        print('Left to add, middle to remove nearest, and right to finish')
         plt.show()
 
 # for creating continuum fit to divide out
@@ -334,7 +334,7 @@ def onclick(event,argslist):
                 # Saving polynomial eqn used in continuum divide for reference
                 with open("continuum_polynomial.txt", "w") as save_file:
                         save_file.write("%s *x^ %d  " %(pvals[0],0))
-                        for i in (xrange(len(pvals))):
+                        for i in (range(len(pvals))):
                                 save_file.write("+ %s *x^ %d  " %(pvals[i+1],i+1))
                 os.chdir('..')
                 calc_coeffs(pvals,x,y,folder_to_save)
@@ -343,7 +343,7 @@ def calc_coeffs(pvals,x,y,folder_to_save):
         fit_y = pvals(x)
         # flattens the continuum
         new_continuum = y / fit_y
-        thickness = int(raw_input('\nEnter thickness of cell in cm\n:'))
+        thickness = int(input('\nEnter thickness of cell in cm\n:'))
         # 2 cm thickness for our work in 2016
         # remove runtime errors when taking negative log and dividing
         err_settings = np.seterr(invalid='ignore')
@@ -370,12 +370,12 @@ def calc_coeffs(pvals,x,y,folder_to_save):
         with open("11200area.txt","w") as f:
                 f.write(str(area11200))
         os.chdir('..')
-        finish_prog = raw_input("Press 'y' when finished\n:")
+        finish_prog = input("Press 'y' when finished\n:")
         check = True
         while check:
                 if (finish_prog =="y"): check = False
         plt.close('all')
-        print "Finished!"
+        print("Finished!")
         quit() # end of program
 
 
