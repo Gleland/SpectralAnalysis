@@ -16,7 +16,7 @@ This will include all of the necessary files to perform a test case to understan
 ### Running the code
 Included are two CSV files with example data. RawBackground.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. 
 
-1. First, you will run the code via the terminal with: `python GTanalysis.py`. This will start the program. The program will ask you for a directory name, this will be where all of the work will be stored. Various plots, csv files, and txt files will be generated during the program and saved into this directory. 
+1. First, you will run the code via the terminal with: `python GTanalysis.py`. NOTE: this code has been recently updated to run as python3 code (tested up to version 3.6.2). If you wish to run this code on python2, use the GTanalysis2.py file that has been included. After running `python GTanalysis.py`, this will start the program. The program will ask you for a directory name, this will be where all of the work will be stored. Various plots, csv files, and txt files will be generated during the program and saved into this directory. 
 
 
 ![first gif](https://github.com/Gleland/SpectralAnalysis/blob/master/images/part1.gif) 
