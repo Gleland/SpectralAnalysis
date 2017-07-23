@@ -34,7 +34,8 @@ def main():
         if user_method.lower() == 's':
             # savitsky-golay option was chosen
             choosing = False
-            raw_x, norm_smooth = sgf_calc()
+            args_list = [folder_to_save, raw_y, raw_ybg, raw_x]
+            raw_x, norm_smooth = sgf_calc(args_list)
             plot_data(raw_x,norm_smooth,folder_to_save)
         elif user_method.lower() == 'f':
             # fft option was chosen
@@ -218,7 +219,8 @@ def fft_calc(filt_y, filt_ybg, raw_x,folder_to_save):
 
 
 
-def sgf_calc(folder_to_save):
+def sgf_calc(args_list):
+        folder_to_save, raw_y, raw_ybg, raw_x = args_list
         # warning when using sgf option
         warnings.filterwarnings(action="ignore", module="scipy",message="^internal gelsd")
         window_param = int(raw_input('Input window box size (must be odd number)\n:'))
@@ -341,7 +343,7 @@ def calc_coeffs(pvals,x,y,folder_to_save):
         fit_y = pvals(x)
         # flattens the continuum
         new_continuum = y / fit_y
-        thickness = int(raw_input('\nEnter thickness of cell in cm\n'))
+        thickness = int(raw_input('\nEnter thickness of cell in cm\n:'))
         # 2 cm thickness for our work in 2016
         # remove runtime errors when taking negative log and dividing
         err_settings = np.seterr(invalid='ignore')
