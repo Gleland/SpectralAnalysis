@@ -15,12 +15,10 @@ This will include all of the necessary files to perform a test case to understan
 
 Make sure to have the following dependencies installed before running this code. Additionally, whether running Python 2.7.x or Python 3.x make sure the correct version of each dependency is met
 
-|Dependencies|
-|---|
-|Numpy|
-|Scipy|
-|Matplotlib|
-|Tkinter|
+ - Numpy
+ - Scipy
+ - Matplotlib
+ - Tkinter
 
 ### Operating Systems and Dependencies have been tested and can run this code
 
