@@ -11,7 +11,7 @@ The first step will be to download this code onto your computer. You can do this
 
 This will include all of the necessary files to perform a test case to understand how the program operates step by step. 
 
-### Operating Systems and dependencies have been tested and can run this code
+### Operating Systems and Dependencies
 
 The following table shows the operating systems and dependencies that have been tested and can run this code. Make sure to have the correct versions installed before proceeding. Be sure to note wheter your system uses Python 2.7.x or Python 3.x when installing each dependency. 
 
