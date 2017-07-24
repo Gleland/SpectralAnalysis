@@ -12,6 +12,12 @@ The first step will be to download this code onto your computer. You can do this
 
 This will include all of the necessary files to perform a test case to understand how the program operates step by step. 
 
+### Operating Systems and Dependencies have been tested and can run this code
+
+|Operating System | Python Version | Numpy | Scipy | Matplotlib | 
+|---|---|--|--|--|
+|MacOS Sierra|  2.7.13 and 3.6.2| 1.13.0 and 1.13.1 | 0.19.0 and 0.19.1 | 2.0.2 |
+|Fedora 26|  2.7.13 and 3.6.2| 1.12.1 and 1.13.1 | 0.19.1 | 2.0.0 and 2.0.2 |
 
 ### Running the code
 Included are two CSV files with example data. RawBackground.csv and RawData.csv are spectra collected of an empty cell chamber and pure methane (CH4) liquid. These spectra were taken at 92 Kelvin. 
