@@ -13,7 +13,7 @@ This will include all of the necessary files to perform a test case to understan
 
 ### Dependencies
 
-Make sure to have the following dependencies installed before running this code. Additionally, whether running Python 2.7.x or Python 3.x make sure the correct version of each dependency is met
+Make sure to have the following dependencies installed before running this code. Additionally, whether running Python 2.7.x or Python 3.x make sure the correct version of each dependency is met. 
 
  - Numpy
  - Scipy
