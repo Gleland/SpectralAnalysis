@@ -25,7 +25,7 @@ Make sure to have the following dependencies installed before running this code.
 ### Operating Systems and Dependencies have been tested and can run this code
 
 |Operating System | Python Version | Numpy | Scipy | Matplotlib | Tkinter|
-|---|---|--|--|--|
+|---|---|---|---|---|---|
 |MacOS Sierra|  2.7.13 and 3.6.2| 1.13.0 and 1.13.1 | 0.19.0 and 0.19.1 | 2.0.2 | 8.5 |
 |Fedora 26|  2.7.13 and 3.6.2| 1.12.1 and 1.13.1 | 0.19.1 | 2.0.0 and 2.0.2 | 8.6 |
 
