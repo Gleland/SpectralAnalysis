@@ -11,16 +11,9 @@ The first step will be to download this code onto your computer. You can do this
 
 This will include all of the necessary files to perform a test case to understand how the program operates step by step. 
 
-### Dependencies
+### Operating Systems and Dependencies have been tested and can run this code
 
 Make sure to have the following dependencies installed before running this code. Additionally, whether running Python 2.7.x or Python 3.x make sure the correct version of each dependency is met. 
-
- - Numpy
- - Scipy
- - Matplotlib
- - Tkinter
-
-### Operating Systems and Dependencies have been tested and can run this code
 
 |Operating System | Python Version | Numpy | Scipy | Matplotlib | Tkinter|
 |---|---|---|---|---|---|
