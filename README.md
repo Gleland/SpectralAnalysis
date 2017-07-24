@@ -85,18 +85,18 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 6. __alpha_coeffs.pdf__: screenshot of the absorption coefficients taken during program execution for later reference
 7. __continuum_chosen.pdf__: screenshot of the continuum chosen during program execution for later reference
 8. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
-9. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+9. __dv_filt_spectrum.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 10. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
 11. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 12. __continuum_polynomial.txt__: The continuum polynomial is saved for future use if someone wants to plot the curve again
-13. __dv_filt_specturm.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
+13. __dv_filt_spectrum.pdf__: The spectrum after it has been filtered and a background divide (raw/background) has been performed
 14. __fft_data.csv__: the raw data after the FFT filter has been applied for future reference if needed
 15. __FFT_filter.pdf__: A screenshot of the filter window chosen during program execution
 16. __freq_window.csv__: a csv file of the values picked for the FFT filter
 17. __FFT_Raw_bg_data.csv__: same as above, but for the background data
 18. __fft_background.pdf__: a screenshot of the FFT performed on the background data during program execution
 19. __rawbackground.pdf__: __a screenshot of the raw background data being plotted at the beginning of the program for future reference
-20. __rawspecturm.pdf__: same as above but for the raw data.
+20. __rawspectrum.pdf__: same as above but for the raw data.
 21. __temperature.txt__: a txt file with the user's input of the temperature of the sample
 22. __concentration.txt__: a txt file with the user's input of the concentration of the sample
 23. __data_files_used.txt__: a txt file with the user's input of the data files used during program execution
