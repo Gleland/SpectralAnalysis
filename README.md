@@ -13,7 +13,7 @@ This will include all of the necessary files to perform a test case to understan
 
 ### Operating Systems and Dependencies
 
-The following table shows the operating systems and dependencies that have been tested and can run this code. Make sure to have the correct versions installed before proceeding. Be sure to note wheter your system uses Python 2.7.x or Python 3.x when installing each dependency. 
+The following table shows the operating systems and dependencies that have been tested and can run this code. Make sure to have the correct versions installed before proceeding. Be sure to note whether your system uses Python 2.7.x or Python 3.x when installing each dependency. 
 
 |Operating System | Python Version | Numpy | Scipy | Matplotlib | Tkinter|
 |---|---|---|---|---|---|
