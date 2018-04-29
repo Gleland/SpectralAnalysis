@@ -103,7 +103,7 @@ Included are two CSV files with example data. RawBackground.csv and RawData.csv 
 23. __data_files_used.txt__: a txt file with the user's input of the data files used during program execution
 24. __time_created.txt__: a timestamp of when the program was executed
 
-### If you have any questions, feel free to contact me at garrett.leland.thompson@gmail.com
+### If you have any questions, feel free to contact me at Gleland@protonmail.com
 
 
 <!---
